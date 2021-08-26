@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>註冊</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap樣式 -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" 
+              href="../static/css/bootstrap.min.css">
+    </head>
+    <body>              
+    <body>    
+        <div class="container" style="max-width: 600px">
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="./centent.html" th:href="@{/centent/}">Home</a></li>
+                        <li><a href="./Login.html" th:href="@{/user/login}">Login</a></li>
+                        <!--<li><a href="./Register.html" th:href="@{/user/register}">Join us</a></li>-->
+                    </ul>
+                </nav>
+            </header>
+            <h2 class="page-header">註冊</h2>
+            <div class="well">
+                <!--請在此添加-->
+                <form action="/user/registerSave" method="POST" th:object="${usersForm}">
+                    <div class="form-group">
+                        <label for="name">帳號</label>
+                        <input type="text" name="name" id="name" class="form-control" th:field="*{name}"/>
+                        <div class="form-control-static text-danger" th:if="${#fields.hasErrors('name')}" th:errors='*{name}'>帳號必須填入</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">密碼</label>
+                        <input type="text" name="password" id="password" class="form-control" th:field="*{password}"/>                        
+                        <div class="form-control-static text-danger" th:if="${#fields.hasErrors('password')}" th:errors='*{password}'>密碼必須填入</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">確認密碼</label>
+                        <input type="text" name="confirmPassword" id="confirmPassword" class="form-control" th:field="*{confirmPassword}"/>
+                        <div class="form-control-static text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors='*{confirmPassword}'>確認密碼必須填入</div>
+
+                    </div>
+                    <div class="form-group">
+                        <label for="email">電子郵件</label>
+                        <input type="text" name="email" id="email" class="form-control" th:field="*{email}"/>
+                        <div class="form-control-static text-danger" th:if="${#fields.hasErrors('email')}" th:errors='*{email}'>電子郵件必須填入</div>
+
+                    </div>
+                    <p>
+                        <button type="submit" class="btn btn-primary">送出</button>
+                        <button type="reset" class="btn btn-primary">清除</button>                        
+                    </p>
+                </form>
+            </div>
+        </div>
+        <footer>
+            2021/03/12 Ms.Wu, City:Tainan, Email:wilson052865@gmail.com
+        </footer>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>添加資料</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap樣式 -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" 
+              href="../static/css/bootstrap.min.css">
+    </head>
+    <body>              
+    <body>    
+        <div class="container">
+            <h2 class="page-header">添加資料</h2>
+            <div class="well">
+                <!--請在此添加-->
+                <form action="#" th:action="@{/product/insertSave}" method="POST" th:object="${product}">
+                    <input type="hidden" th:value="*{id}" name="id"/>
+                    <div class="form-group">
+                        <label for="name">名稱</label>
+                        <input type="text" name="name" id="name" class="form-control" th:value="*{name}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand">品牌</label>
+                        <input type="text" name="brand" id="brand" class="form-control" th:value="*{brand}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="madein">產地</label>
+                        <input type="text" name="madein" id="madein" class="form-control" th:value="*{madein}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">單價</label>
+                        <input type="text" name="price" id="price" class="form-control" th:value="*{price}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="qty">庫存量</label>
+                        <input type="text" name="qty" id="qty" class="form-control" th:value="*{qty}"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">狀態</label>
+                        <select name="state" id="state" class="form-control">
+                            <option value="0" th:selected="(*{state}=='0')">未上架</option>
+                            <option value="1" th:selected="(*{state}=='1')">準備中</option>
+                            <option value="2" th:selected="(*{state}=='2')">已上架</option>                            
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">送出</button>
+                    <a href="javascript:history.go(-1);" class="btn btn-default">返回</a>
+                </form>
+            </div>
+        </div>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+    </body>
+</html>

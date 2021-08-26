@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>SearchPurchase</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap樣式 -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" 
+              href="../static/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" 
+              href="../static/javascript/tablesorter/themes/blue/style.css" >
+        <style type="text/css">
+            table {
+                border: 1px solid #8899BB;
+                margin: 20px;
+            }
+            td {
+                font-size: 13px;
+                font-family: "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+                padding: 3px;
+                text-align: center;
+            }
+            #alphimals tbody tr.static td {
+                background-color: #999999;
+                color: #ffffff;
+            }
+        </style>
+    </head>              
+    <body>
+        <div class="container" style="max-width: 600px">
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="./centent.html" th:href="@{/centent/}">Home</a></li>
+                        <li><a href="./SearchYourBuy" th:href="@{/centent/searchyourbuy}">Search</a></li>
+                        <li><a href="./Login.html" th:href="@{/user/login}">Login</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+        <div class="container">
+            <h2 class="page-header">Information</h2>
+            <div class="well">
+                <!--請在此添加-->
+                <table class="table table-bordered" id="alphimals" cellspacing="0">
+                    <thead>
+                        <tr>
+<!--                            <th>#</th>
+                            <th>編號</th>-->
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Email</th>
+                            <th>Address</th>
+                            <th>Purchase</th>
+                            <!--<th>狀態</th>-->
+<!--                            <th>功能</th>-->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${searchnew}">
+                            <td th:text="${p.name}">Sprint</td>
+                            <td th:text="${p.phonenumber}">USA</td>
+                            <td th:text="${p.email}">xxxx@xxx.xxx.xx</td>
+                            <td th:text="${p.address}">Address</td>
+                            <td><a href="./shopping_Product.html" th:href="@{/centent//shopping/{id}(id=${p.purchaseid})}" th:text="${p.purchase}">productName</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <footer>
+            2021/03/12 Ms.Wu, City:Tainan, Email:wilson052865@gmail.com
+        </footer>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+        <!--<script type="text/javascript" src="../static/javascript/jquery.min.js"></script>-->
+        <script type="text/javascript" src="../static/javascript/tablesorter/jquery.tablesorter.min.js"></script>
+        <script type="text/javascript" src="../static/javascript/jquery.tablesorter.staticrow.min.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $('#alphimals').tablesorter({ widgets: ['zebra','staticRow'] })
+            });
+        </script>
+    </body>
+</html>
