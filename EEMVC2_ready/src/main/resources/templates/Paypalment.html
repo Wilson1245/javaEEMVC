@@ -126,16 +126,15 @@ span.price {
                         <i class="fa fa-cc-discover" style="color:orange;"></i>
                     </div>
                     <label for="price">Total</label>
-                    <input type="text" id="price" name="price" th:value="*{price}">
+                    <input type="text" id="price" name="price" th:value="*{price}" readonly="readonly">
                     <label for="currency">Currency</label>
-                    <input type="text" id="currency" name="currency" placeholder="Enter Currency" value="USD">
+                    <input type="text" id="currency" name="currency" placeholder="Enter Currency" value="TWD" readonly="readonly">
                     <label for="method">Payment Method</label>
-                    <input type="text" id="method" name="method" placeholder="Payment Method" value="Paypal">
+                    <input type="text" id="method" name="method" placeholder="Choose your payment method" value="Paypal" readonly="readonly">
                     <label for="intent">Intent</label>
-                    <input type="text" id="intent" name="intent" value="sale">
+                    <input type="text" id="intent" name="intent" value="sale" readonly="readonly">
                     <label for="description">Payment Description</label>
                     <input type="text" id="description" name="description" placeholder="Payment Description">
-
                 </div>
 
                 <input type="submit" value="Continue to checkout" class="btn">

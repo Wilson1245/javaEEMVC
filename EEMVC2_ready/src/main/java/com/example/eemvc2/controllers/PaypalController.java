@@ -62,18 +62,18 @@ public class PaypalController {
 
 	@PostMapping("/pay")
 	public String payment(@ModelAttribute("order") Order order){
-            try {
-                Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
-                        order.getIntent(), order.getDescription(), "http://localhost:8080/paypal/" + CANCEL_URL,
-                        "http://localhost:8080/paypal/" + SUCCESS_URL);
-                for(Links link : payment.getLinks()){
-                    if(link.getRel().equals("approval_url")) {
-                        return "redirect:"+link.getHref();
-                    }
-                }
-            } catch (PayPalRESTException ex) {
-                ex.printStackTrace();
-            }
+                    try {
+                            Payment payment = service.createPayment(order.getPrice(), order.getCurrency(), order.getMethod(),
+                                    order.getIntent(), order.getDescription(), "http://localhost:8080/paypal/" + CANCEL_URL,
+                                    "http://localhost:8080/paypal/" + SUCCESS_URL);
+                            for(Links link : payment.getLinks()){
+                                if(link.getRel().equals("approval_url")) {
+                                    return "redirect:"+link.getHref();
+                                }
+                            }
+                        } catch (PayPalRESTException ex) {
+                            ex.printStackTrace();
+                            }
             return "redirect:/paypal/";
 	}
 	
