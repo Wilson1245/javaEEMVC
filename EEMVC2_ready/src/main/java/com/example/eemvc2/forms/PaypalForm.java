@@ -17,15 +17,15 @@ public class PaypalForm {
     
     @NotBlank
     @Length(max = 20)
-    private String name;
+    private String customerName;
     
     @NotBlank
-    private String phonenumber;
+    private String customerPhone;
     
     @NotBlank
-    private String address;
+    private String customerAddress;
     
     @NotBlank
-    private String email;
+    private String customerEmail;
     
 }

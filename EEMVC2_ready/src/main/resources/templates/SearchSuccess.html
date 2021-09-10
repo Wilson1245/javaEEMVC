@@ -52,24 +52,32 @@ and open the template in the editor.
                 <table class="table table-bordered" id="alphimals" cellspacing="0">
                     <thead>
                         <tr>
-<!--                            <th>#</th>
-                            <th>編號</th>-->
+                            <th>serial number</th>
+                            <th>Purchase</th>
                             <th>Name</th>
                             <th>Phone Number</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>Purchase</th>
-                            <!--<th>狀態</th>-->
-<!--                            <th>功能</th>-->
+                            <th>Stat</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr th:each="p : ${searchnew}">
-                            <td th:text="${p.name}">Sprint</td>
-                            <td th:text="${p.phonenumber}">USA</td>
-                            <td th:text="${p.email}">xxxx@xxx.xxx.xx</td>
-                            <td th:text="${p.address}">Address</td>
-                            <td><a href="./shopping_Product.html" th:href="@{/centent//shopping/{id}(id=${p.purchaseid})}" th:text="${p.purchase}">productName</a></td>
+                            <td th:text="${p.serialNumber}">SPSFyyyyMMddHHmmss01234</td>
+                            <td><a href="./shoppingProduct.html" th:href="@{/centent//shopping/{id}(id=${p.purchaseId})}" th:text="${p.purchaseName}">productName</a></td>
+                            <td th:text="${p.customerName}">customer_Name</td>
+                            <td th:text="${p.customerPhone}">09-XX-XXX-XXX</td>
+                            <td th:text="${p.customerEmail}">xxxx@xxx.xxx.xx</td>
+                            <td th:text="${p.customerAddress}">customer_Address</td>
+                            <td th:switch="${p.shipmentStat}">
+                                <span th:case="1">訂單已生成</span>
+                                <span th:case="2">已運送至物流中心</span>
+                                <span th:case="3">配貨中</span>
+                                <span th:case="4">出貨中</span>
+                                <span th:case="5">已送達</span>
+                                <span th:case="6">申請退貨</span>
+                                <span th:case="7">狀態異常</span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.eemvc2.pojo.Product;
 import com.example.eemvc2.forms.PaypalForm;
+import com.example.eemvc2.interceptor.AbstractOrderSequenceRandom;
 import com.example.eemvc2.services.PurchaseService;
 import javax.validation.Valid;
 import org.springframework.validation.BindingResult;
@@ -35,7 +36,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/paypal")
-public class PaypalController {
+public class PaypalController extends AbstractOrderSequenceRandom{
 
 	@Autowired
 	PaypalService service;
@@ -104,14 +105,18 @@ public class PaypalController {
             
         @PostMapping("/paypalForm")
         public String gopaypalForm(Purchase purchase, RedirectAttributes attributes){
-            purchase.setPurchase(purchaseName);
-            purchase.setPurchaseid(purchaseId);
-            System.out.println("Name : " + purchase.getName());
-            System.out.println("PhoneNumber : " + purchase.getPhonenumber());
-            System.out.println("Address : " + purchase.getAddress());
-            System.out.println("Email : " + purchase.getEmail());
-            System.out.println("Purchase : " + purchase.getPurchase());
-            System.out.println("PurchaseId : " + purchase.getPurchaseid());
+            purchase.setPurchaseName(purchaseName);
+            purchase.setPurchaseId(purchaseId);
+            purchase.setSerialNumber(createOrderSnRandom());
+            purchase.setShipmentStat(1);
+            System.out.println("Name : " + purchase.getCustomerName());
+            System.out.println("PhoneNumber : " + purchase.getCustomerPhone());
+            System.out.println("Address : " + purchase.getCustomerAddress());
+            System.out.println("Email : " + purchase.getCustomerEmail());
+            System.out.println("Purchase : " + purchase.getPurchaseName());
+            System.out.println("PurchaseId : " + purchase.getPurchaseId());
+            System.out.println("Serial : " + purchase.getSerialNumber());
+            System.out.println("Shipment_Stat : " + purchase.getShipmentStat());
             purchaseService.insert(purchase);
             String msg = "Buy Now";
             attributes.addFlashAttribute("message", msg);

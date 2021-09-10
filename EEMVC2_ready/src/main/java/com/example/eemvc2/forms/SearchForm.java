@@ -16,8 +16,8 @@ import lombok.Data;
 public class SearchForm {
     
     @NotBlank
-    private String phonenumber;
+    private String customerPhone;
     
     @NotBlank
-    private String email;
+    private String customerEmail;
 }

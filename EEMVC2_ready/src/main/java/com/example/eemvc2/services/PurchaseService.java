@@ -30,6 +30,6 @@ public class PurchaseService {
     }
     
     public List<Purchase> findByPhonenumberAndEmail (String phonenumber, String email){
-        return purchaseRepository.findByPhonenumberAndEmail(phonenumber, email);
+        return purchaseRepository.findByCustomerPhoneAndCustomerEmail(phonenumber, email);
     }
 }

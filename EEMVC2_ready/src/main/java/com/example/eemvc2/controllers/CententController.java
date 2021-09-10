@@ -87,7 +87,7 @@ public class CententController {
     }
     
     @PostMapping("/searchnew")
-    public String searchnew(String phonenumber, String email, Model model, RedirectAttributes attributes){
+    public String searchnew(String customerPhone, String customerEmail, Model model, RedirectAttributes attributes){
 //        List<Purchase> p = purchaseService.findAll();
 ////        System.out.println("-------All--->>>" + p);
 ////        System.out.println("---.get(0)--->>>>" + p.get(0));
@@ -127,7 +127,7 @@ public class CententController {
 //        attributes.addFlashAttribute("message", msg);
 //        return "redirect:/centent/";
 //    }
-    List<Purchase> purchasesList = purchaseRepository.findByPhonenumberAndEmail(phonenumber, email);
+    List<Purchase> purchasesList = purchaseRepository.findByCustomerPhoneAndCustomerEmail(customerPhone, customerEmail);
     if(!purchasesList.isEmpty()){
         model.addAttribute("searchnew", purchasesList);
         return "SearchSuccess";

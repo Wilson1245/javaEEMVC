@@ -22,19 +22,32 @@ public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column(length = 20, nullable = false)
-    private String name;
-
-    private String phonenumber;
-
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private String address;
-
-    @Column(nullable = false)
-    private String email;
-
-    private String purchase;
     
-    private int purchaseid;
+    @Column(length = 30, nullable = false)
+    //流水號
+    private String serialNumber;
+    
+    //貨物名稱
+    private String purchaseName;
+    
+    //貨物編號
+    private int purchaseId;
+    
+    //出貨狀態
+    private int shipmentStat;
+    
+    //客戶名稱
+    @Column(length = 20, nullable = false)
+    private String customerName;
+    
+    //客戶電話
+    private String customerPhone;
+    
+    //客戶地址
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String customerAddress;
+    
+    //客戶信箱
+    @Column(nullable = false)
+    private String customerEmail;
 }

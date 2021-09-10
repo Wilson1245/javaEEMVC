@@ -21,6 +21,7 @@ and open the template in the editor.
                 <nav>
                     <ul>
                         <li><a href="./centent.html" th:href="@{/centent/}">Home</a></li>
+                        <li><a href="./SearchYourBuy" th:href="@{/centent/searchyourbuy}">Search</a></li>
                         <li><a href="./Login.html" th:href="@{/user/login}">Login</a></li>
                         <!--<li><a href="./Register.html" th:href="@{/user/register}">Join us</a></li>-->
                     </ul>
@@ -39,14 +40,20 @@ and open the template in the editor.
                 <p th:text="*{madein}">產地</p>
                 <label>單價</label>
                 <p th:text="*{price}">單價</p>
-<!--                <label>庫存量</label>
-                <p th:text="*{qty}">庫存量</p>-->
+                <!--                <label>庫存量</label>
+                                <p th:text="*{qty}">庫存量</p>-->
                 <label>狀態</label>
                 <p th:switch="*{state}">
                     <span th:case="0">未上架</span>   
                     <span th:case="1">準備中</span>   
                     <span th:case="2">已上架</span>
                 </p>
+                <div class="alert alert-danger" th:if="*{state == 0}">
+                    <strong>注意：</strong>商品未上架(補貨中請稍後)!
+                </div>
+                <div class="alert alert-warning" th:if="*{state == 1}">
+                    <strong>注意：</strong>商品上架準備中(請持續關注)!
+                </div>
                 <a th:if="*{state == 2}" href="./Paypalment.html" th:href="@{/paypal/{id}(id=*{id})}">buy new</a>
             </div>
             <a href="javascript:history.go(-1);" class="btn btn-default">返回</a>

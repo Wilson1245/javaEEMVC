@@ -51,11 +51,49 @@ and open the template in the editor.
                             <option value="2" th:selected="(*{state}=='2')">已上架</option>                            
                         </select>
                     </div>
+<!--                    <div class="form-group">
+                        <label for="image">上傳圖片</label>
+                        <input type="file" name="image" id="image" targetID="image_img" class="form-control" th:value="*{image}" onchange="readURL(this);checkfile(this)">
+                        <img id="image_img" src="#" />
+                    </div>-->
                     <button type="submit" class="btn btn-primary">送出</button>
                     <a href="javascript:history.go(-1);" class="btn btn-default">返回</a>
                 </form>
             </div>
         </div>
+
+        <script>
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var imageTagID = input.getAttribute("targetID");
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        var img = document.getElementById(imageTagID);
+                        img.setAttribute("src", e.target.result)
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+        </script>
+
+        <script type="text/javascript" language="javascript">
+            function checkfile(sender) {
+
+                // 可接受的附檔名
+                var validExts = new Array(".jpg");
+
+                var fileExt = sender.value;
+                fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+                if (validExts.indexOf(fileExt) < 0) {
+                    alert("檔案類型錯誤，可接受的副檔名有：" + validExts.toString());
+                    sender.value = null;
+                    return false;
+                } else
+                    return true;
+            }
+        </script>
+
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
         <!-- Include all compiled plugins (below), or include individual files as needed -->

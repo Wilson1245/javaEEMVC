@@ -84,6 +84,7 @@ public class ProductController {
     @PostMapping("/insertSave")
     //public String insertPost(String name, String brand, String madein, int price, int qty, int state){
     public String insertPost(Product p, RedirectAttributes attributes) {//, Model m) {
+        System.out.println("image : " + p.getImage());
         productService.insert(p);
         String msg = String.format("「%s」該產品已異動成功!", p.getName());
         //m.addAttribute("message", msg);
