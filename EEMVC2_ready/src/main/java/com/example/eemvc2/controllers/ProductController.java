@@ -7,7 +7,14 @@ package com.example.eemvc2.controllers;
 
 import com.example.eemvc2.services.ProductService;
 import com.example.eemvc2.pojo.Product;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.Part;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,6 +25,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -81,10 +90,42 @@ public class ProductController {
      *
      * @return
      */
+//    @Value("${file.upload.path}")
+//    private String path;
+    @Value("classpath:/static/image/")
+    private String path;
+
     @PostMapping("/insertSave")
     //public String insertPost(String name, String brand, String madein, int price, int qty, int state){
-    public String insertPost(Product p, RedirectAttributes attributes) {//, Model m) {
-        System.out.println("image : " + p.getImage());
+    public String insertPost(Product p, RedirectAttributes attributes, @RequestPart MultipartFile newimage) throws IOException {//, Model m) {
+//        System.out.println("Before imageFile : " + p.getImage());
+//        String filename = p.getImage();
+//        p.setImage("/image/" + filename);
+//        System.out.println("After imageFile : " + p.getImage());
+
+        String fileName = newimage.getOriginalFilename();
+
+        if (!fileName.isEmpty()) {
+            //存入Database的路徑 OK
+            String imagePath = "/image/";
+            String newImagePath = imagePath + fileName;
+            p.setImage(newImagePath);
+            System.out.println("fileName : " + fileName);
+            System.out.println("New ImagePath : " + p.getImage());
+
+            //複製圖檔至/static/image/
+//            String path = "classpath::/static/image/";
+            String filePath = path + fileName;
+            System.out.println("filePath ------------->>>>>>>>>>>" + filePath);
+            File dest = new File(filePath);
+            System.out.println("Dest -------->>>>> : " + dest);
+            System.out.println("newimage.getInputStream --------->>>>>>> : " + newimage.getInputStream());
+//            Files.copy(newimage.getInputStream(), dest.toPath());
+            System.out.println("ProductController.GetResources / -------->>>>>> : " + ProductController.class.getResource("/"));
+             System.out.println("ProductController.GetResources  -------->>>>>> : " + ProductController.class.getResource(""));
+        }
+
+        //Save
         productService.insert(p);
         String msg = String.format("「%s」該產品已異動成功!", p.getName());
         //m.addAttribute("message", msg);
@@ -123,4 +164,18 @@ public class ProductController {
         attributes.addFlashAttribute("message", msg);
         return "redirect:/product/";
     }
+
+//    //Copy
+//    public void copyFileUsingFileChannels(File source, File dest) throws IOException {
+//        FileChannel inputChannel = null;
+//        FileChannel outputChannel = null;
+//        try {
+//            inputChannel = new FileInputStream(source).getChannel();
+//            outputChannel = new FileOutputStream(dest).getChannel();
+//            outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
+//        } finally {
+//            inputChannel.close();
+//            outputChannel.close();
+//        }
+//    }
 }

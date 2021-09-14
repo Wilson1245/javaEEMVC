@@ -21,7 +21,7 @@ and open the template in the editor.
             <h2 class="page-header">添加資料</h2>
             <div class="well">
                 <!--請在此添加-->
-                <form action="#" th:action="@{/product/insertSave}" method="POST" th:object="${product}">
+                <form id="myform" action="#" th:action="@{/product/insertSave}" method="POST" th:object="${product}" enctype="multipart/form-data">
                     <input type="hidden" th:value="*{id}" name="id"/>
                     <div class="form-group">
                         <label for="name">名稱</label>
@@ -51,48 +51,63 @@ and open the template in the editor.
                             <option value="2" th:selected="(*{state}=='2')">已上架</option>                            
                         </select>
                     </div>
-<!--                    <div class="form-group">
+                    <!--                    <img th:src="*{image}" height="400", width="350">-->
+                    <div class="form-group">
+                        <img id="preview_progressbarTW_img" src="#" th:src="*{image}" height="320" width="180" style="display:block"/>
+                        <input type="hidden" id="image" name="image" class="form-control" th:value="*{image}">
                         <label for="image">上傳圖片</label>
-                        <input type="file" name="image" id="image" targetID="image_img" class="form-control" th:value="*{image}" onchange="readURL(this);checkfile(this)">
-                        <img id="image_img" src="#" />
-                    </div>-->
+                        <!--<input type="file" name="fileimage" id="fileimage" targetID="image_img" class="form-control" onchange="readURL(this);checkfile(this);">
+                                 <input type="text" name="image" id="image" class="form-control" th:value="*{image}"/>
+                                                <img id="image_img" src="#" />-->
+                        <p>
+                            <input type="file" id="newimage" name="newimage" onchange="showname();" accept=".jpg">
+                        </p> 
+                    </div>
                     <button type="submit" class="btn btn-primary">送出</button>
                     <a href="javascript:history.go(-1);" class="btn btn-default">返回</a>
                 </form>
             </div>
         </div>
 
-        <script>
-
-            function readURL(input) {
-                if (input.files && input.files[0]) {
-                    var imageTagID = input.getAttribute("targetID");
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        var img = document.getElementById(imageTagID);
-                        img.setAttribute("src", e.target.result)
+<!--        <script>
+            document.getElementById('image').onchange = function () {
+                alert('Selected file: ' + this.value);
+            };
+        </script>-->
+        <script type="text/javascript">
+            function setBlogrollImageName(basicfile) {
+                document.getElementById("image").value = basicfile.value;
+            }
+        </script>
+        <!--        <script>
+                    function readURL(input) {
+                        if (input.files && input.files[0]) {
+                            var imageTagID = input.getAttribute("targetID");
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                var img = document.getElementById(imageTagID);
+                                img.setAttribute("src", e.target.result)
+                            }
+                            reader.readAsDataURL(input.files[0]);
+                        }
                     }
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
-        </script>
-
-        <script type="text/javascript" language="javascript">
-            function checkfile(sender) {
-
-                // 可接受的附檔名
-                var validExts = new Array(".jpg");
-
-                var fileExt = sender.value;
-                fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
-                if (validExts.indexOf(fileExt) < 0) {
-                    alert("檔案類型錯誤，可接受的副檔名有：" + validExts.toString());
-                    sender.value = null;
-                    return false;
-                } else
-                    return true;
-            }
-        </script>
+                </script>-->
+        <!--        <script type="text/javascript" language="javascript">//
+                    function checkfile(sender) {
+        
+                        // 可接受的附檔名
+                        var validExts = new Array(".jpg");
+        
+                        var fileExt = sender.value;
+                        fileExt = fileExt.substring(fileExt.lastIndexOf('.'));
+                        if (validExts.indexOf(fileExt) < 0) {
+                            alert("檔案類型錯誤，可接受的副檔名有：" + validExts.toString());
+                            sender.value = null;
+                            return false;
+                        } else
+                            return true;
+                    }
+                </script>-->
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
