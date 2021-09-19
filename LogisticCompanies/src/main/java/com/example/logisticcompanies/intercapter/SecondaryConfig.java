@@ -32,7 +32,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactorySecondary",
         transactionManagerRef = "transactionManagerSecondary",
-        basePackages = {"com.annet.file.sqlserver.dao"}) //設定Repository所在位置
+        basePackages = {"com.example.logisticcompanies.repositories.PurchaseRepository"}) //設定Repository所在位置
 public class SecondaryConfig {
 
     @Autowired
@@ -54,14 +54,10 @@ public class SecondaryConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactorySecondary(EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(secondaryDataSource)
-                .properties(getVendorProperties(secondaryDataSource))
-                .packages("com.annet.file.sqlserver.model") //設定實體類所在位置
-                .persistenceUnit("secondaryPersistenceUnit")
+                .properties(getVendorProperties())
+                .packages("com.example.logisticcompanies.pojo.Purchase") //設定實體類所在位置
+                .persistenceUnit("purchasePersistenceUnit")
                 .build();
-    }
-
-    private Map<String, String> getVendorProperties(DataSource dataSource) {
-        return getVendorProperties(dataSource);
     }
 
     @Bean(name = "transactionManagerSecondary")
@@ -70,9 +66,12 @@ public class SecondaryConfig {
     }
     
     //沒有jpaProperties.getHibernateProperties(dataSource)方法
-    private Map<String, Object> getVendorProperties() {
-        return hibernateProperties.determineHibernateProperties(
-                jpaProperties.getProperties(),
-                new HibernateSettings());
+//    private Map<String, Object> getVendorProperties() {
+//        return hibernateProperties.determineHibernateProperties(
+//                jpaProperties.getProperties(),
+//                new HibernateSettings());
+//    }
+    private Map getVendorProperties() {
+        return hibernateProperties.determineHibernateProperties(jpaProperties.getProperties(), new HibernateSettings());
     }
 }

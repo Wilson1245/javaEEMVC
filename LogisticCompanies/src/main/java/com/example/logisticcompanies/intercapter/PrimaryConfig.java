@@ -31,7 +31,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryPrimary",
         transactionManagerRef = "transactionManagerPrimary",
-        basePackages = {"com.annet.file.mysql.dao"}) //設定Repository所在位置
+        basePackages = {"com.example.logisticcompanies.repositories.CompanyRepository"}) //設定Repository所在位置
 public class PrimaryConfig {
 
     @Autowired
@@ -55,16 +55,12 @@ public class PrimaryConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactoryPrimary(EntityManagerFactoryBuilder builder) {
         return builder
                 .dataSource(primaryDataSource)
-                .properties(getVendorProperties(primaryDataSource))
-                .packages("com.annet.file.mysql.model") //設定實體類所在位置
-                .persistenceUnit("primaryPersistenceUnit")
+                .properties(getVendorProperties())
+                .packages("com.example.logisticcompanies.pojo.Company") //設定實體類所在位置
+                .persistenceUnit("companyPersistenceUnit")
                 .build();
     }
-
-    private Map<String, String> getVendorProperties(DataSource dataSource) {
-        return getVendorProperties(dataSource);
-    }
-
+    
     @Primary
     @Bean(name = "transactionManagerPrimary")
     public PlatformTransactionManager transactionManagerPrimary(EntityManagerFactoryBuilder builder) {
@@ -72,9 +68,12 @@ public class PrimaryConfig {
     }
 
     //沒有jpaProperties.getHibernateProperties(dataSource)方法
-    private Map<String, Object> getVendorProperties() {
-        return hibernateProperties.determineHibernateProperties(
-                jpaProperties.getProperties(),
-                new HibernateSettings());
+//    private Map<String, Object> getVendorProperties() {
+//        return hibernateProperties.determineHibernateProperties(
+//                jpaProperties.getProperties(),
+//                new HibernateSettings());
+//    }
+    private Map getVendorProperties() {
+        return hibernateProperties.determineHibernateProperties(jpaProperties.getProperties(), new HibernateSettings());
     }
 }
