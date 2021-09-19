@@ -5,16 +5,16 @@
  */
 package com.example.eemvc2.controllers;
 
+import com.example.eemvc2.Eemvc2Application;
 import com.example.eemvc2.services.ProductService;
 import com.example.eemvc2.pojo.Product;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -92,9 +92,8 @@ public class ProductController {
      */
 //    @Value("${file.upload.path}")
 //    private String path;
-    @Value("classpath:/static/image/")
-    private String path;
-
+//    @Value("classpath:/static/image/")
+//    private String path;
     @PostMapping("/insertSave")
     //public String insertPost(String name, String brand, String madein, int price, int qty, int state){
     public String insertPost(Product p, RedirectAttributes attributes, @RequestPart MultipartFile newimage) throws IOException {//, Model m) {
@@ -102,7 +101,7 @@ public class ProductController {
 //        String filename = p.getImage();
 //        p.setImage("/image/" + filename);
 //        System.out.println("After imageFile : " + p.getImage());
-
+        String imgName = p.getImage();//原本的圖片
         String fileName = newimage.getOriginalFilename();
 
         if (!fileName.isEmpty()) {
@@ -114,15 +113,26 @@ public class ProductController {
             System.out.println("New ImagePath : " + p.getImage());
 
             //複製圖檔至/static/image/
-//            String path = "classpath::/static/image/";
-            String filePath = path + fileName;
+//            System.out.println("ProductController.GetResources / -------->>>>>> : " + Eemvc2Application.class.getResource("/").getPath());
+            StringBuilder MyFilePath = new StringBuilder(Eemvc2Application.class.getResource("/").getPath());
+            MyFilePath = MyFilePath.deleteCharAt(0);
+//            System.out.println("MyFilePath : " + MyFilePath.toString());
+            String MyFilePathV2 = MyFilePath.toString();
+            MyFilePathV2 = MyFilePathV2.substring(0, MyFilePathV2.length() - 15) + "src/main/resources/static/image/";
+            System.out.println("MyFilePathV2 : " + MyFilePathV2);
+
+            String filePath = MyFilePathV2 + fileName;
             System.out.println("filePath ------------->>>>>>>>>>>" + filePath);
             File dest = new File(filePath);
             System.out.println("Dest -------->>>>> : " + dest);
-            System.out.println("newimage.getInputStream --------->>>>>>> : " + newimage.getInputStream());
-//            Files.copy(newimage.getInputStream(), dest.toPath());
-            System.out.println("ProductController.GetResources / -------->>>>>> : " + ProductController.class.getResource("/"));
-             System.out.println("ProductController.GetResources  -------->>>>>> : " + ProductController.class.getResource(""));
+            
+            String imgNamePath = MyFilePathV2 + imgName;//原本圖片的路徑
+            System.out.println("imgNamePath : " + imgNamePath);
+            File file = new File(imgNamePath);
+            Path path = file.toPath();
+            Files.deleteIfExists(path);
+            
+            Files.copy(newimage.getInputStream(), dest.toPath());//複製到image資料夾
         }
 
         //Save

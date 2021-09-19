@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>貨物表單</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div class="well">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>貨物編號</th>
+                        <th>貨物名稱</th>
+                        <th>取貨人姓名</th>
+                        <th>取貨人電話</th>
+                        <th>取貨人信箱</th>
+                        <th>取貨人地址</th>
+                        <th>貨物目前狀態</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${purchase}">
+                        <td th:text="${p.serialNumber}">SPSFyyyyMMddHHmmss01234</td>
+                            <td th:text="${p.purchaseName}">productName</td>
+                            <td th:text="${p.customerName}">customer_Name</td>
+                            <td th:text="${p.customerPhone}">09-XX-XXX-XXX</td>
+                            <td th:text="${p.customerEmail}">xxxx@xxx.xxx.xx</td>
+                            <td th:text="${p.customerAddress}">customer_Address</td>
+                            <td th:switch="${p.shipmentStat}">
+                                <span th:case="1">訂單已生成</span>
+                                <span th:case="2">已運送至物流中心</span>
+                                <span th:case="3">配貨中</span>
+                                <span th:case="4">出貨中</span>
+                                <span th:case="5">已送達</span>
+                                <span th:case="6">申請退貨</span>
+                                <span th:case="7">狀態異常</span>
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
