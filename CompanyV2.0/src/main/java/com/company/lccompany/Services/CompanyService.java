@@ -9,8 +9,13 @@ import com.company.lccompany.repositories.CompanyRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.company.lccompany.pojo.Company;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.stereotype.Service;
-import com.company.lccompany.Model.ConnectionDataBase;
 /**
  *
  * @author Administrator
@@ -26,27 +31,19 @@ public class CompanyService {
     }
     
     public void updateCompany(){
-        List<Company> purchase = connectionDataBase();
-        for (Company company : purchase){
-            company.setCustomerAddress(purchase.get(1).toString());
-            company.setCustomerEmail(purchase.get(2).toString());
-            company.setCustomerName(purchase.get(3).toString());
-            company.setCustomerPhone(purchase.get(4).toString());
-            company.setPurchaseId(Integer.parseInt(purchase.get(5).toString()));
-            company.setPurchaseName(purchase.get(6).toString());
-            company.setSerialNumber(purchase.get(7).toString());
-            company.setShipmentStat(Integer.parseInt(purchase.get(8).toString()));
-            if(companyRepository.findByserialNumber(company.getSerialNumber()).isEmpty()){
-                save(company);
-            }
-        }
+//        Connection conn = null;
+//        String sql = "insert into company select id, customer_name, customer_phone, customer_email, customer_address, purchase_id, purchase_name, serial_number, shipment_stat FROM dblink('hostaddr=127.0.0.1 port=5432 dbname=jfxrsbdq user=jfxrsbdq password=IwjwxOnT88lCjGHGp5LVdehUoOvl_67a','SELECT id,customer_email, customer_address,customer_name, customer_phone, purchase_id, purchase_name, serial_number, shipment_stat FROM purchase;')As t(id int, customer_phone text, customer_name text, customer_email text, customer_address text,  purchase_id int, purchase_name text, serial_number text, shipment_stat int)where shipment_stat >= 1 on conflict do nothing";
+//        try {
+//            Statement st = conn.createStatement();
+//            st.execute(sql);
+//        } catch (SQLException ex) {
+//            ex.printStackTrace();
+//        }
+          companyRepository.logURL();
+        
     }
     
     public void save (Company company){
         companyRepository.save(company);
-    }
-    
-    public List<Company> connectionDataBase(){
-       return new ConnectionDataBase().connectionDataSource();
     }
 }

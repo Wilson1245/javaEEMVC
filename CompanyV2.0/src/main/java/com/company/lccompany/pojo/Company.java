@@ -19,15 +19,19 @@ import lombok.Data;
 @Data
 @Entity
 public class Company {
+    
+    
+//    private int companyId;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(length = 30, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     //流水號
     private String serialNumber;
     
     //貨物名稱
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String purchaseName;
     
     //貨物編號
@@ -37,10 +41,11 @@ public class Company {
     private int shipmentStat;
     
     //客戶名稱
-    @Column(length = 20, nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String customerName;
     
     //客戶電話
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String customerPhone;
     
     //客戶地址
@@ -48,6 +53,6 @@ public class Company {
     private String customerAddress;
     
     //客戶信箱
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String customerEmail;
 }
