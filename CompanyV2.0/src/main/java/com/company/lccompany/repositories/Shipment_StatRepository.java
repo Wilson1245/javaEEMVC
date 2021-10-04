@@ -5,12 +5,14 @@
  */
 package com.company.lccompany.repositories;
 
-import com.company.lccompany.pojo.Shipment_Stat;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import com.company.lccompany.pojo.Shipment_Stat;
+import java.util.List;
 /**
  *
- * @author Administrator
+ * @author wuweicheng
  */
-public interface StatRepository extends JpaRepository<Long, Shipment_Stat> {
+public interface Shipment_StatRepository extends JpaRepository<Shipment_Stat, Integer>{  
+    List<Shipment_Stat> findByStatId(int statId);
+    List<Shipment_Stat> findByStatMean(String statMean);
 }

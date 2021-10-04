@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>???</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap樣式 -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" 
+              href="../static/css/bootstrap.min.css">
+    </head>              
+    <body>
+        <div class="container" style="max-width: 600px">
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="#" th:href="@{/show}">Home</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+        <div class="container">
+            <h2 class="page-header">Stat</h2>
+            <div class="well">
+                <!--請在此添加-->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>MEAN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="stat : ${shipment_Stats}">
+                            <td th:text="${stat.statId}">stat_Id</td>
+                            <td th:text="${stat.statMean}">stat_Mean</td>
+                        </tr>
+                    </tbody>
+                </table>
+<!--                <form action="#" th:action="@{/saveStat}" method="POST" th:object="${Shipment_StatForm}">
+                    <div>
+                        <label for="stat_id">ID</label>
+                        <input type="text" id="stat_id" name="stat_id" class="form-control" th:field="*{stat_id}"/>
+                    </div>
+                    <div>
+                        <label for="stat_mean">Mean</label>
+                        <input type="text" id="stat_mean" name="stat_mean" class="form-control" th:field="*{stat_mean}"/>
+                    </div>
+                    <p>
+                        <button type="submit" class="btn btn-primary">送出</button>
+                        <button type="reset" class="btn btn-primary">清除</button>                        
+                    </p>
+                </form>-->
+            </div>
+        </div>
+        <footer>
+            2021/03/12 Ms.Wu, City:Tainan, Email:wilson052865@gmail.com
+        </footer>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+    </body>
+</html>

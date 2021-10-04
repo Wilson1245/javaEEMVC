@@ -9,8 +9,6 @@ import com.company.lccompany.repositories.CompanyRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.company.lccompany.pojo.Company;
-import com.company.lccompany.pojo.Shipment_Stat;
-import com.company.lccompany.repositories.StatRepository;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 /**
@@ -21,9 +19,6 @@ import org.springframework.stereotype.Service;
 public class CompanyService {
     @Autowired
     CompanyRepository companyRepository;
-    
-    @Autowired
-    StatRepository statRepository;
     
     public List<Company> ShowAllpurchase (){
         updateCompany();
@@ -40,9 +35,5 @@ public class CompanyService {
     
     public Optional<Company> findById(int id){
         return companyRepository.findById(id);
-    }
-    
-    public List<Integer> Stat_findAll(){
-        return statRepository.findAll();
     }
 }

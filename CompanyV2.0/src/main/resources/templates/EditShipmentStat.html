@@ -20,7 +20,7 @@ and open the template in the editor.
             <header>
                 <nav>
                     <ul>
-                        <li></li>
+                        <li><a href="#" th:href="@{/show}">Home</a></li>
                     </ul>
                 </nav>
             </header>
@@ -44,7 +44,7 @@ and open the template in the editor.
                     </div>
                     <div>
                         更改狀態:
-                        <select id="stat_id" name="stat_id">
+<!--                        <select id="stat_id" name="stat_id">
                             <option value="" disabled="disabled">選擇狀態</option>
                             <option value="1">訂單已生成</option>
                             <option value="2">已運送至物流中心</option>
@@ -53,6 +53,11 @@ and open the template in the editor.
                             <option value="5">已送達</option>
                             <option value="6">申請退貨</option>
                             <option value="7">狀態異常</option>
+                        </select>-->
+                        <select id="stat_id" name="stat_id">
+                            <option th:each="statList : ${StatList}"
+                                    th:text="${statList.statMean}"
+                                    th:value="${statList.statId}">
                         </select>
                     </div>
                     <div>

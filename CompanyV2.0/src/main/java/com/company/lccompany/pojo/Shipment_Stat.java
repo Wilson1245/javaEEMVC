@@ -6,19 +6,24 @@
 package com.company.lccompany.pojo;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Data;
 
 /**
  *
- * @author Administrator
+ * @author wuweicheng
  */
 @Data
 @Entity
 public class Shipment_Stat {
     
     @Id
-    public int stat_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     
-    public String stat_mean;
+    private int statId;
+    
+    private String statMean;
 }
