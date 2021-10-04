@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Edit List Stat</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap樣式 -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" 
+              href="../static/css/bootstrap.min.css">
+    </head>              
+    <body>
+        <div class="container" style="max-width: 600px">
+            <header>
+                <nav>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+        <div class="container">
+            <h2 class="page-header">更改訂單狀態</h2>
+            <div class="well">
+                <!--請在此添加-->
+                <form id="editstat" name="editstat" action="#" th:action="@{/editInsert}" method="POST">
+                    <div>
+                        貨物流水號:<p th:text="${purchase.serialNumber}">SPSFyyyyMMddHHmmss01234</p>
+                        貨物狀態:<p th:switch="${purchase.shipmentStat}">
+                            <span th:case="1">訂單已生成</span>
+                            <span th:case="2">已運送至物流中心</span>
+                            <span th:case="3">配貨中</span>
+                            <span th:case="4">出貨中</span>
+                            <span th:case="5">已送達</span>
+                            <span th:case="6">申請退貨</span>
+                            <span th:case="7">狀態異常</span>
+                        </p>
+                    </div>
+                    <div>
+                        更改狀態:
+                        <select id="stat_id" name="stat_id">
+                            <option value="" disabled="disabled">選擇狀態</option>
+                            <option value="1">訂單已生成</option>
+                            <option value="2">已運送至物流中心</option>
+                            <option value="3">配貨中</option>
+                            <option value="4">出貨中</option>
+                            <option value="5">已送達</option>
+                            <option value="6">申請退貨</option>
+                            <option value="7">狀態異常</option>
+                        </select>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-primary">送出</button>
+                        <a href="javascript:history.go(-1);" class="btn btn-default">返回</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer>
+            2021/03/12 Ms.Wu, City:Tainan, Email:wilson052865@gmail.com
+        </footer>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+    </body>
+</html>

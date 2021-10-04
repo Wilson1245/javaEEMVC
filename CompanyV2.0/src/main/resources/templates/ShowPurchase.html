@@ -8,26 +8,44 @@ and open the template in the editor.
     <head>
         <title>Purchase List</title>
         <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
+
+        <!-- Bootstrap樣式 -->
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" 
+              href="../static/css/bootstrap.min.css">
+    </head>              
     <body>
-        <div class="well">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>SerialNumber</th>
-                        <th>purchaseName</th>
-                        <th>purchaseId</th>
-                        <th>customerName</th>
-                        <th>customerPhone</th>
-                        <th>customerAddress</th>
-                        <th>customerEmail</th>
-                        <th>shipmentStat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="p : ${purchase}">
+        <div class="container" style="max-width: 600px">
+            <header>
+                <nav>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+        <div class="container">
+            <h2 class="page-header">貨物表單</h2>
+            <div class="well">
+                <!--請在此添加-->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>流水號</th>
+                            <th>商品名稱</th>
+                            <th>商品編號</th>
+                            <th>客戶名稱</th>
+                            <th>客戶手機號</th>
+                            <th>客戶地址</th>
+                            <th>客戶信箱</th>
+                            <th>貨物狀態</th>
+                            <th>功能</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="p : ${purchase}">
                             <td th:text="${p.id}">Id</td>
                             <td th:text="${p.serialNumber}">SPSFyyyyMMddHHmmss01234</td>
                             <td th:text="${p.purchaseName}">purchaseName</td>
@@ -45,9 +63,20 @@ and open the template in the editor.
                                 <span th:case="6">申請退貨</span>
                                 <span th:case="7">狀態異常</span>
                             </td>
-                    </tr>
-                </tbody>
-            </table>
+                            <td>
+                                <a href="./EditShipmentStat.html" th:href="@{/edit/{id}(id=${p.id})}">更改貨物狀態</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        <footer>
+            2021/03/12 Ms.Wu, City:Tainan, Email:wilson052865@gmail.com
+        </footer>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
     </body>
 </html>
