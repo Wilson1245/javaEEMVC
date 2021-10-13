@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.example.logisticcompanies.repositories;
+package com.example.logisticcompanies.repositories.secondary;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.logisticcompanies.pojo.Company;
+import com.example.logisticcompanies.pojo.secondary.Purchase;
 import org.springframework.stereotype.Repository;
 /**
  *
  * @author Administrator
  */
 @Repository
-public interface CompanyRepository extends JpaRepository<Company, Integer>{
+public interface PurchaseRepository extends JpaRepository<Purchase, Integer>{
     
 }

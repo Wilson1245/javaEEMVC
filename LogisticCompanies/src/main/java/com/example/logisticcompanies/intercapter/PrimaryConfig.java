@@ -31,7 +31,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactoryPrimary",
         transactionManagerRef = "transactionManagerPrimary",
-        basePackages = {"com.example.logisticcompanies.repositories.CompanyRepository"}) //設定Repository所在位置
+        basePackages = {"com.example.logisticcompanies.repositories.primary.CompanyRepository"}) //設定Repository所在位置
 public class PrimaryConfig {
 
     @Autowired
@@ -56,7 +56,7 @@ public class PrimaryConfig {
         return builder
                 .dataSource(primaryDataSource)
                 .properties(getVendorProperties())
-                .packages("com.example.logisticcompanies.pojo.Company") //設定實體類所在位置
+                .packages("com.example.logisticcompanies.pojo.primary.Company") //設定實體類所在位置
                 .persistenceUnit("companyPersistenceUnit")
                 .build();
     }

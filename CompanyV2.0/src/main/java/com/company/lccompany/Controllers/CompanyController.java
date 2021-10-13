@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.company.lccompany.pojo.Shipment_Stat;
 import com.company.lccompany.Services.Shipment_StatService;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 /**
  *
@@ -56,20 +57,23 @@ public class CompanyController {
 //        }
 //        return "redirect:/insertStat";
 //    }
+    Company editCompany = null;
     
     @GetMapping("/edit/{id}")
     public String editShipStat(@PathVariable int id, Model model){
         Company company = companyService.findById(id).get();
+        editCompany = company;
         List<Shipment_Stat> list = statService.findAll();
         model.addAttribute("StatList", list);
-        model.addAttribute("purchase", company);
+        model.addAttribute("company", company);
         return "EditShipmentStat";
     }
     
     @PostMapping("/editInsert")
-    public String editInsert(Company company, RedirectAttributes attributes){
-        System.out.println("Company---->>>>>>" + company);
-        companyService.save(company);
+    public String editInsert(RedirectAttributes attributes, @RequestParam(name = "stat_id", required = false) int statId){
+        editCompany.setShipmentStat(statId);
+        System.out.println("Company---->>>>>>" + editCompany);
+        companyService.save(editCompany);
         return "redirect:/show";
     }
 }

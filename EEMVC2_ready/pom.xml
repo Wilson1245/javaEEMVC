@@ -11,7 +11,7 @@
     <groupId>com.example</groupId>
     <artifactId>eemvc2</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>EEMVC2_ready</name>
+    <name>ShippingSite</name>
     <description>Intro Controller and URL Pattern</description>
     <properties>
         <java.version>1.8</java.version>

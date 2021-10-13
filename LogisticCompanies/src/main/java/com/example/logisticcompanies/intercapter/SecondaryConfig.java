@@ -9,6 +9,8 @@ package com.example.logisticcompanies.intercapter;
  *
  * @author Administrator
  */
+import com.example.logisticcompanies.pojo.secondary.Purchase;
+import com.example.logisticcompanies.repositories.secondary.PurchaseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
@@ -32,7 +34,7 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateSettings;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "entityManagerFactorySecondary",
         transactionManagerRef = "transactionManagerSecondary",
-        basePackages = {"com.example.logisticcompanies.repositories.PurchaseRepository"}) //設定Repository所在位置
+        basePackageClasses = {PurchaseRepository.class}) //設定Repository所在位置
 public class SecondaryConfig {
 
     @Autowired
@@ -55,7 +57,7 @@ public class SecondaryConfig {
         return builder
                 .dataSource(secondaryDataSource)
                 .properties(getVendorProperties())
-                .packages("com.example.logisticcompanies.pojo.Purchase") //設定實體類所在位置
+                .packages(Purchase.class) //設定實體類所在位置
                 .persistenceUnit("purchasePersistenceUnit")
                 .build();
     }

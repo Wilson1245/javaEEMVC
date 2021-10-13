@@ -5,6 +5,7 @@
  */
 package com.example.logisticcompanies.intercapter;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -12,20 +13,34 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 import javax.sql.DataSource;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 
 @Configuration
 public class DataSourceConfig {
-
-    @Bean(name = "primaryDataSource")
+    
+    @Bean
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource.primary")
+    public DataSourceProperties primaryDataSourceProperties(){
+        return new DataSourceProperties();
+    }
+    @Bean
+    @ConfigurationProperties(prefix = "spring.datasource.secondary")
+    public DataSourceProperties secondaryDataSourceProperties(){
+        return new DataSourceProperties();
+    }
+    @Bean(name = "primaryDataSource")
+    @Primary
+    @ConfigurationProperties(prefix = "spring.datasource.primary.configuration")
     public DataSource primaryDataSource() {
-        return DataSourceBuilder.create().build();
+        return primaryDataSourceProperties().initializeDataSourceBuilder()
+                .type(HikariDataSource.class).build();
     }
 
     @Bean(name = "secondaryDataSource")
-    @ConfigurationProperties(prefix = "spring.datasource.secondary")
+    @ConfigurationProperties(prefix = "spring.datasource.secondary.configuration")
     public DataSource secondaryDataSource() {
-        return DataSourceBuilder.create().build();
+        return secondaryDataSourceProperties().initializeDataSourceBuilder()
+                .type(HikariDataSource.class).build();
     }
 }
