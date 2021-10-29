@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.eemvc2.pojo.Purchase;
 import com.example.eemvc2.repositories.PurchaseRepository;
+import com.example.eemvc2.services.PurchaseService;
 /**
  *
  * @author User
@@ -34,7 +35,7 @@ public class UsersController {
     private UsersService usersService;
     
     @Autowired
-    private PurchaseRepository purchaseRepository;
+    private PurchaseService purchaseService;
     
     @GetMapping("/goUsersIndex")
     public String goUsersIndex(){
@@ -115,8 +116,14 @@ public class UsersController {
 
     @GetMapping("/purchaseAll")
     public String findPurchaseAll(Model model){
-        List<Purchase> purchasesList = purchaseRepository.findAll();
+        List<Purchase> purchasesList = purchaseService.findAll();
         model.addAttribute("searchnew", purchasesList);
         return "UserPurchaseAll";
+    }
+    
+    @GetMapping("/updateDB")
+    public String updateDB(){
+        purchaseService.updateData();
+        return "redirect:/user/purchaseAll";
     }
 }

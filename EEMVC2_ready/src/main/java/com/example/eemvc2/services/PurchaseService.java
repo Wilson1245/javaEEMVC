@@ -25,6 +25,10 @@ public class PurchaseService {
         purchaseRepository.save(purchase);
     }
     
+    public void updateData(){
+        purchaseRepository.logURL();
+    }
+    
     public List<Purchase> findAll(){
         return purchaseRepository.findAll();
     }

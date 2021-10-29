@@ -93,6 +93,7 @@ public class ProductService {
         return pp;
     }
     
+    
 //    public Object readImage(String pathURL){
 //        String filename = pathURL;
 //        BufferedImage image;

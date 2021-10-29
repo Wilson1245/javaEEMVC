@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.company.lccompany.pojo.Company;
 import java.util.Optional;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 /**
  *
@@ -21,11 +22,10 @@ public class CompanyService {
     CompanyRepository companyRepository;
     
     public List<Company> ShowAllpurchase (){
-        updateCompany();
-        return companyRepository.findAll();
+        return companyRepository.findAll(Sort.by("id"));
     }
     
-    public void updateCompany(){
+    public void updateDB(){
           companyRepository.logURL();
     }
     

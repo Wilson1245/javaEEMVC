@@ -22,6 +22,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.example.eemvc2.pojo.Purchase;
 import com.example.eemvc2.repositories.PurchaseRepository;
+import com.example.eemvc2.services.PurchaseService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -36,7 +37,7 @@ public class CententController {
     private ProductService productService;
     
     @Autowired
-    private PurchaseRepository purchaseRepository;
+    private PurchaseService purchaseService;
     
     @GetMapping("/{id}")
     public String findById(@PathVariable int id, Model m){
@@ -127,7 +128,7 @@ public class CententController {
 //        attributes.addFlashAttribute("message", msg);
 //        return "redirect:/centent/";
 //    }
-    List<Purchase> purchasesList = purchaseRepository.findByCustomerPhoneAndCustomerEmail(customerPhone, customerEmail);
+    List<Purchase> purchasesList = purchaseService.findByPhonenumberAndEmail(customerPhone, customerEmail);
     if(!purchasesList.isEmpty()){
         model.addAttribute("searchnew", purchasesList);
         return "SearchSuccess";

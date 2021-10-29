@@ -76,4 +76,10 @@ public class CompanyController {
         companyService.save(editCompany);
         return "redirect:/show";
     }
+    
+    @GetMapping("/updateDB")
+    public String updateDB(){
+        companyService.updateDB();
+        return "redirect:/show";
+    }
 }
